@@ -5,7 +5,11 @@ Sustituye al formulario en línea anterior (propio y embebido de Notion), que en
 no recibía de forma confiable el código de los reportes.
 
 **Producción:** https://actua-ia-reporteador.vercel.app
+**Repositorio:** https://github.com/jimontijo1973/actua-ia-reporteador (rama `main`)
 **Proyecto Vercel:** `prj_FPBUish4nQvRWEG9qmn0dlQwyIBo` · team `team_ENuFmh386PdEYJWaAKl0ioON`
+
+Cada push a `main` despliega a producción. La protección de despliegue está desactivada:
+la URL es pública.
 
 ## Qué hace
 
@@ -33,7 +37,6 @@ npm run dev          # desarrollo
 npm run build        # genera /dist
 npm run preview      # sirve /dist local
 npm run creditos     # regenera el catálogo desde Notion (requiere NOTION_TOKEN)
-npm run pack-data    # ver "Mecanismo temporal" abajo
 ```
 
 ## Dónde se edita cada cosa
@@ -61,28 +64,12 @@ Para actualizarlo:
 ```bash
 NOTION_TOKEN=ntn_xxx npm run creditos
 # actualizar site.creditosActualizados en src/config/site.js
-npm run pack-data    # mientras exista el mecanismo temporal
-npm run build
+git commit -am "Actualiza catálogo de créditos" && git push   # Vercel despliega solo
 ```
 
 Se eligió snapshot en vez de endpoint en vivo a propósito: no hay token en el cliente, no
 hay una llamada a Notion por visitante, y un cambio de esquema en Notion no puede tumbar
 la página — que fue justo lo que pasó con el endpoint del formulario anterior.
-
-## Mecanismo temporal: `_data.b64`
-
-Mientras el proyecto se despliegue subiendo archivos sueltos a Vercel (sin repo git),
-`src/data/creditos.json` y `src/data/plantillas.js` no caben en el envío. Van comprimidos
-en `src/data/_data.b64` y `scripts/prepare-data.mjs` los reconstruye antes de compilar.
-
-Ese script **nunca sobrescribe un archivo que ya exista**: en local su versión siempre
-manda. Pero si edita esos archivos, regenere el paquete con `npm run pack-data` antes de
-desplegar, o Vercel compilará con la versión vieja.
-
-**En cuanto el proyecto viva en un repo de git, esto se borra:**
-
-- eliminar `scripts/prepare-data.mjs`, `scripts/pack-data.mjs` y `src/data/_data.b64`
-- dejar `"build": "vite build"` en `package.json`
 
 ## Límites del botón de correo (no son de este sitio)
 
@@ -94,14 +81,10 @@ desplegar, o Vercel compilará con la versión vieja.
 
 ## Pendientes
 
-1. **Protección de despliegue.** El team tiene `ssoProtection: all_except_custom_domains`:
-   hoy la URL `.vercel.app` pide cuenta de Vercel. Hay que desactivarla o conectar
-   `www.actualizate-ia.com.mx` para que el piloto entre.
-2. **Repositorio en GitHub** y proyecto ligado, para desplegar en cada push y quitar el
-   mecanismo temporal.
-3. Confirmar razón social (`S. de R.L.` vs `S.C. de R.L.`) y el wording autorizado de
+1. Apuntar el DNS de `www.actualizate-ia.com.mx` a Vercel y conectar el dominio.
+2. Confirmar razón social (`S. de R.L.` vs `S.C. de R.L.`) y el wording autorizado de
    "Distribuidor Máster CONTPAQi®".
-4. Crear los buzones `ventas@` y `soporte@actualizate-ia.com.mx` — el footer los enlaza.
+3. Crear los buzones `ventas@` y `soporte@actualizate-ia.com.mx` — el footer los enlaza.
 
 ## QA
 

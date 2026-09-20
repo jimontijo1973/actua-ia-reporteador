@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/prepare-data.mjs && vite build",
+    "build": "vite build",
     "preview": "vite preview",
-    "creditos": "node scripts/fetch-creditos.mjs",
-    "pack-data": "node scripts/pack-data.mjs"
+    "creditos": "node scripts/fetch-creditos.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.454.0",
