@@ -1,0 +1,14 @@
+name: Deploy to GitHub Pageson:push:branches:'main'permissions:contents: readpages: writeid-token: writeconcurrency:group:'pages'cancel-in-progress:truejobs:deploy:environment:name: github-pagesurl: ${{ steps.deployment.outputs.page_url }}runs-on: ubuntu-lateststeps:
+      -name: Checkoutuses: actions/checkout@v4
+
+      -name: Set up Nodeuses: actions/setup-node@v4with:node-version:20cache:'npm'
+
+      -name: Install dependenciesrun: npm ci
+
+      -name: Buildrun: npm run build
+
+      -name: Setup Pagesuses: actions/configure-pages@v4
+
+      -name: Upload artifactuses: actions/upload-pages-artifact@v3with:path:'./dist'
+
+      -name: Deploy to GitHub Pagesid: deploymentuses: actions/deploy-pages@v4
