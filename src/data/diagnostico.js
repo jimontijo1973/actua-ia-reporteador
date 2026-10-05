@@ -115,7 +115,7 @@ Responder a: <correo>`;
 
 const LO_QUE_NECESITA = `
 
-## LO QUE NECESITA
+## DIAGNOSTICO
 <Descríbalo con sus palabras, como se lo explicaría a un compañero.
 Qué datos quiere ver, cómo quiere agruparlos o totalizarlos.>
 
@@ -150,7 +150,7 @@ Archivo:
 Salida deseada:
 Responder a:
 
-## LO QUE NECESITA
+## DIAGNOSTICO
 
 ${tipo === 3 ? '\n## ERROR O RESULTADO INCORRECTO (solo tipo 3)\n\n' : ''}`;
 }
@@ -173,7 +173,7 @@ Archivo: SaldosClienteProveedor.rpt
 Salida deseada: Excel
 Responder a: contacto@ejemplo.com.mx
 
-## LO QUE NECESITA
+## DIAGNOSTICO
 Quiero el reporte de saldos por proveedor pasado completo a Excel, con
 las mismas columnas que tiene hoy, y que siga haciendo cortes por
 moneda, subtotal por proveedor y total por moneda.
