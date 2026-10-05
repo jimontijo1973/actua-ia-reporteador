@@ -6,7 +6,7 @@ import site from '../config/site';
 const PREGUNTAS = [
   {
     q: '¿Qué es un crédito y cuántos necesito?',
-    a: 'Cada reporte tiene asignado un número de créditos según su tamaño en caracteres: los más grandes cuestan más porque hay más código que leer, entender y volver a compilar. En el catálogo de cada sección busque su archivo y ahí aparece el número. No depende de qué tan complicado sea el cambio que pida, sino del reporte que se va a tocar.',
+    a: 'Cada reporte tiene asignado un número de créditos según su tamaño en caracteres: los más grandes cuestan más porque hay más código que leer, entender y volver a compilar. En el catálogo de cada sección busque su archivo y ahí aparece el número. No depende de qué tan complicado sea el cambio que pida, sino del reporte que se va a tocar. El [DIAGNOSTICO] con adjunto se cobra con la misma regla.',
   },
   {
     q: '¿Pueden hacerme un reporte nuevo desde cero?',
@@ -25,8 +25,28 @@ const PREGUNTAS = [
     a: 'La solicitud se procesa igual, pero usted se queda sin forma de comprobar la entrega más que abriéndola y revisándola a mano. La validación es lo que convierte "quedó bien" en un número que cualquiera verifica: cuántos renglones deben salir, qué debe dar un cálculo, qué no debe haber cambiado. En Contabilidad es prácticamente obligatoria: si un parámetro cambia la consulta, esa rama del código sólo se ejerce al correrla.',
   },
   {
-    q: '¿Por qué el asunto tiene que empezar con [REPORTE]?',
-    a: 'Porque la corrida filtra el buzón por ese prefijo. Un correo sin él simplemente no se recoge, y nadie se entera de que usted escribió.',
+    q: '¿Por qué el asunto tiene que empezar con [REPORTE] o [DIAGNOSTICO]?',
+    a: 'Porque la corrida filtra el buzón por esos prefijos: [REPORTE] para procesar y entregar el reporte, [DIAGNOSTICO] para pedir el análisis previo. Un correo sin ninguno de los dos simplemente no se recoge, y nadie se entera de que usted escribió.',
+  },
+  {
+    q: '¿Cuándo pido un [DIAGNOSTICO] y cuándo un [REPORTE]?',
+    a: 'Pida [REPORTE] cuando ya sabe qué reporte se modifica y qué cambio quiere. Pida [DIAGNOSTICO] cuando sabe lo que necesita ver en pantalla pero no sabe qué reporte usar, cómo pedir el ajuste o por qué su reporte falla. El diagnóstico prepara la solicitud; el reporte la ejecuta.',
+  },
+  {
+    q: '¿El [DIAGNOSTICO] me entrega el reporte modificado?',
+    a: 'No. El diagnóstico no entrega código: entrega el análisis, las correcciones a su petición y, en el tipo 2, la solicitud [REPORTE] ya prellenada. La modificación del código se hace en el canal [REPORTE], que se cobra aparte cuando usted lo envía.',
+  },
+  {
+    q: '¿Cuánto cuesta un [DIAGNOSTICO]?',
+    a: 'Sin adjunto cuesta 1 crédito por respuesta. Con adjunto, 1 crédito por cada 60,000 caracteres del .rpt más las librerías que adjunte, con un mínimo de 1. Las réplicas en el mismo hilo cuestan lo mismo que la primera respuesta. Los créditos se descuentan del RFC que indique en la solicitud.',
+  },
+  {
+    q: '¿Puedo mandar una captura de pantalla, un PDF o un Excel al [DIAGNOSTICO]?',
+    a: 'No sirven: solo se analizan adjuntos .rpt, y lo demás no se abre ni se cobra. Si una captura muestra algo relevante —un cliente, un folio, un importe— descríbalo en texto dentro de la solicitud.',
+  },
+  {
+    q: 'Mi reporte usa librerías y no las adjunté al [DIAGNOSTICO]. ¿Qué pasa?',
+    a: 'Se diagnostica de todos modos, con una advertencia de que faltó revisar las librerías. El cobro no cambia. Si quiere un análisis completo, adjunte el .rpt con las librerías de sus líneas Incluye.',
   },
   {
     q: 'Le di al botón y no se abrió mi correo. ¿Qué hago?',

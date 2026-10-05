@@ -16,7 +16,10 @@ export default function BotonCorreo({ sistema }) {
   const a = acento(sistema.acento);
   const [copiado, setCopiado] = useState(false);
 
-  const asunto = `${site.prefijoAsunto} ${sistema.valorSistema} - `;
+  // sistema.asuntoMailto y sistema.textoAdjunto permiten reutilizar el botón en [DIAGNOSTICO].
+  const asunto = sistema.asuntoMailto ?? `${site.prefijoAsunto} ${sistema.valorSistema} - `;
+  const textoAdjunto =
+    sistema.textoAdjunto ?? 'Pegue encima la plantilla completa y adjunte su archivo .RPT';
   const mailto = `mailto:${site.buzon}?subject=${encodeURIComponent(
     asunto
   )}&body=${encodeURIComponent(sistema.cuerpoCorto)}`;
@@ -66,7 +69,7 @@ export default function BotonCorreo({ sistema }) {
             El botón deja el correo abierto con el destinatario y el asunto listos, más el
             esqueleto de la solicitud.{' '}
             <strong className="text-slate-200">
-              Pegue encima la plantilla completa y adjunte su archivo .RPT
+              {textoAdjunto}
             </strong>{' '}
             antes de enviar: ninguna página web puede adjuntar archivos por usted.
           </span>

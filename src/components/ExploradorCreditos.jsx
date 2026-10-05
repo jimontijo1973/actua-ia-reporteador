@@ -14,7 +14,14 @@ const normalizar = (s) =>
 
 const miles = (n) => (typeof n === 'number' ? n.toLocaleString('es-MX') : '—');
 
-export default function ExploradorCreditos({ sistemas, color = 'aqua' }) {
+export default function ExploradorCreditos({
+  sistemas,
+  color = 'aqua',
+  titulo = 'Reportes que puede solicitar',
+  descripcion = 'Busque su reporte por nombre de archivo para saber cuántos créditos necesita adquirir antes de enviar la solicitud.',
+  columna = 'Créditos',
+  nota = 'Los créditos se calculan por el tamaño del reporte, no por lo que se le pida cambiar.',
+}) {
   const a = acento(color);
   const [busqueda, setBusqueda] = useState('');
   const [subFiltro, setSubFiltro] = useState('todos');
@@ -56,15 +63,14 @@ export default function ExploradorCreditos({ sistemas, color = 'aqua' }) {
       <div className="border-b border-white/10 p-4 sm:p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h4 className="font-display text-base font-bold text-white">
-            Reportes que puede solicitar
+            {titulo}
           </h4>
           <p className="text-xs text-slate-400">
             {base.length} reportes · catálogo al {site.creditosActualizados}
           </p>
         </div>
         <p className="mt-1.5 text-sm text-slate-400">
-          Busque su reporte por nombre de archivo para saber cuántos créditos necesita
-          adquirir antes de enviar la solicitud.
+          {descripcion}
         </p>
 
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -152,7 +158,7 @@ export default function ExploradorCreditos({ sistemas, color = 'aqua' }) {
                     Sistema
                   </th>
                 )}
-                <th className="px-4 py-2.5 text-right font-semibold sm:px-5">Créditos</th>
+                <th className="px-4 py-2.5 text-right font-semibold sm:px-5">{columna}</th>
               </tr>
             </thead>
             <tbody>
@@ -199,10 +205,7 @@ export default function ExploradorCreditos({ sistemas, color = 'aqua' }) {
         </span>
         <span className="flex max-w-md items-start gap-1.5 leading-relaxed">
           <Coins className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${a.texto}`} />
-          <span>
-            Los créditos se calculan por el tamaño del reporte, no por lo que se le pida
-            cambiar.
-          </span>
+          <span>{nota}</span>
         </span>
       </div>
     </div>

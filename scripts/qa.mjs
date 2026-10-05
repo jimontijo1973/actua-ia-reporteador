@@ -52,13 +52,68 @@ for (const v of vistas) {
   }
 
   // Probar el buscador de créditos
-  const buscador = page.locator('input[type="search"]').first();
+  const buscador = page.locator('#premium input[type="search"]').first();
   await buscador.scrollIntoViewIfNeeded();
   await buscador.fill('comision');
   await page.waitForTimeout(400);
-  const visibles = await page.locator('table tbody tr').count();
+  const visibles = await page.locator('#premium table tbody tr').count();
   console.log(`[${v.nombre}] filas tras buscar "comision" en la 1a sección: ${visibles}`);
   await page.screenshot({ path: `${OUT}/${v.nombre}-busqueda.png` });
+
+  // Sección [DIAGNOSTICO] / [REPORTE]: árbol, selector, tipos, plantilla, cobro y catálogo
+  await page.goto(URL + '#servicio', { waitUntil: 'networkidle' });
+  await page.waitForTimeout(600);
+  await page.screenshot({ path: `${OUT}/${v.nombre}-servicio.png` });
+
+  const sec = page.locator('#servicio');
+  if (!(await sec.getByText('El diagnóstico no entrega código; la modificación se hace en [REPORTE].').count()))
+    errores.push(`[${v.nombre}] falta la frase clave del Diagnóstico`);
+
+  for (const n of [1, 2, 3]) {
+    await sec.getByRole('tab', { name: new RegExp(`Tipo ${n}`) }).click();
+    const cuerpo = await sec.locator('pre code').first().textContent(); // asunto
+    const plantilla = await sec.locator('pre code').nth(1).textContent();
+    if (!plantilla.includes(`Tipo de solicitud: ${n}`))
+      errores.push(`[${v.nombre}] la plantilla no refleja el tipo ${n}`);
+    if (n === 3 && !plantilla.includes('ERROR O RESULTADO INCORRECTO'))
+      errores.push(`[${v.nombre}] el tipo 3 no trae la sección de error`);
+    if (n !== 3 && plantilla.includes('ERROR O RESULTADO INCORRECTO'))
+      errores.push(`[${v.nombre}] el tipo ${n} no debe traer la sección de error`);
+    if (!cuerpo.startsWith('[DIAGNOSTICO]')) errores.push(`[${v.nombre}] asunto sin [DIAGNOSTICO]`);
+  }
+  await sec.getByRole('tab', { name: 'Tipo 3 Mi reporte falla' }).screenshot({ path: `${OUT}/${v.nombre}-tipo3-tab.png` }).catch(() => {});
+
+  // Cobro y catálogo (mismo número de créditos que el snapshot)
+  await sec.getByText('Cobro', { exact: true }).scrollIntoViewIfNeeded();
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: `${OUT}/${v.nombre}-cobro.png` });
+  await sec.locator('input[type="search"]').fill('saldos');
+  await page.waitForTimeout(300);
+  const filasDiag = await sec.locator('table tbody tr').count();
+  console.log(`[${v.nombre}] filas en el catálogo del Diagnóstico tras buscar "saldos": ${filasDiag}`);
+
+  // Ejemplo del Diagnóstico
+  await sec.getByRole('button', { name: /Ejemplo: Saldos por proveedor/ }).click();
+  await page.waitForTimeout(300);
+  if (!(await sec.getByText('DISTRIBUIDORA EJEMPLO SA DE CV').count()))
+    errores.push(`[${v.nombre}] el ejemplo del Diagnóstico no se despliega`);
+
+  // Árbol → modo [REPORTE]
+  await sec.getByRole('button', { name: /Ya sé qué reporte es/ }).click();
+  await page.waitForTimeout(700);
+  await page.screenshot({ path: `${OUT}/${v.nombre}-modo-reporte.png` });
+  if (!(await sec.getByText('Procesar y entregar el código del reporte').count()))
+    errores.push(`[${v.nombre}] el modo [REPORTE] no se muestra`);
+
+  // El aviso retirado no debe existir
+  if (await page.getByText('El formulario en línea se retiró').count())
+    errores.push(`[${v.nombre}] sigue el aviso "El formulario en línea se retiró"`);
+  // El robot carga
+  const robotOk = await page.evaluate(() => {
+    const i = document.querySelector('img[src$="brand/robot.webp"]');
+    return !!i && i.complete && i.naturalWidth > 0;
+  });
+  if (!robotOk) errores.push(`[${v.nombre}] la imagen del robot no carga`);
 
   // Sección 3 completa
   await page.goto(URL + '#contabilidad', { waitUntil: 'networkidle' });

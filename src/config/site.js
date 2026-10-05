@@ -7,9 +7,16 @@ export const site = {
   razonSocial: 'ACTUALIZATE YA, S. de R.L. de C.V.', // TODO: confirmar con contador
   distintivo: 'Distribuidor Máster CONTPAQi®',
 
-  // Buzón de intake del robot. El asunto DEBE empezar con [REPORTE].
+  // Buzón de intake del robot. El asunto DEBE empezar con [REPORTE] o [DIAGNOSTICO].
   buzon: 'chip@actualizate-ia.com.mx',
   prefijoAsunto: '[REPORTE]',
+  prefijoDiagnostico: '[DIAGNOSTICO]',
+
+  // La etiqueta NUEVO del Diagnóstico se apaga sola en esta fecha (hora local del visitante).
+  nuevoHasta: '2026-11-01',
+
+  // Sitio donde se vota el nombre del robot (el robot del Hero sostiene el letrero "MI NOMBRE ?").
+  bautizoUrl: 'https://actua-ia-bautizo.vercel.app/',
 
   contacto: {
     telefono: '686 841 8800',
@@ -25,5 +32,8 @@ export const site = {
 
   creditosActualizados: '14 de septiembre de 2026',
 };
+
+// true mientras no llegue site.nuevoHasta
+export const esNuevo = () => new Date() < new Date(`${site.nuevoHasta}T00:00:00`);
 
 export default site;

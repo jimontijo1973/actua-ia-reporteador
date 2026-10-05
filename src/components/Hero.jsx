@@ -1,8 +1,8 @@
 // src/components/Hero.jsx
 import React from 'react';
-import { Mail, ArrowDown, Info, Paperclip } from 'lucide-react';
+import { Mail, ArrowDown, ArrowRight, Paperclip } from 'lucide-react';
 import site from '../config/site';
-import sistemas from '../data/plantillas';
+import Nuevo from './Nuevo';
 
 export default function Hero() {
   return (
@@ -23,6 +23,18 @@ export default function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-aqua-400" />
             {site.distintivo}
           </span>
+
+          <a
+            href="#servicio"
+            className="mt-3 flex w-fit max-w-full items-center gap-2 rounded-full border border-morado-500/40 bg-morado-500/10 py-1.5 pl-2 pr-3 text-xs font-semibold text-morado-300 transition hover:bg-morado-500/20"
+          >
+            <Nuevo />
+            <span>
+              ¿No sabe qué reporte pedir? Empiece con un{' '}
+              <span className="font-mono">[DIAGNOSTICO]</span>
+            </span>
+            <ArrowRight className="h-3.5 w-3.5 shrink-0" />
+          </a>
 
           <h1 className="mt-5 font-display text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-5xl">
             Sus reportes de CONTPAQi®,
@@ -59,7 +71,8 @@ export default function Hero() {
             <span className="inline-flex items-center gap-1.5">
               <Paperclip className="h-3.5 w-3.5 text-aqua-400" />
               El asunto empieza con{' '}
-              <code className="font-mono text-slate-200">[REPORTE]</code>
+              <code className="font-mono text-slate-200">[REPORTE]</code> o{' '}
+              <code className="font-mono text-slate-200">[DIAGNOSTICO]</code>
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Paperclip className="h-3.5 w-3.5 text-aqua-400" />
@@ -68,42 +81,31 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Aviso del cambio de canal */}
+        {/* Robot */}
         <div className="lg:col-span-5">
-          <div className="rounded-2xl border border-amber-400/25 bg-amber-400/[0.06] p-5 sm:p-6">
-            <div className="flex items-start gap-3">
-              <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
-              <div>
-                <h2 className="font-display text-base font-bold text-white">
-                  El formulario en línea se retiró
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                  En las pruebas, ni el formulario propio ni el embebido de Notion lograron
-                  recibir de forma confiable el código de los reportes: los textos largos se
-                  cortaban y los archivos no siempre llegaban completos.
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                  El correo no tiene ese problema: acepta adjuntos reales, no impone tope de
-                  captura y le deja a usted una copia de lo que pidió.{' '}
-                  <strong className="text-white">
-                    Toda solicitud entra por {site.buzon}.
-                  </strong>
-                </p>
-              </div>
+          <figure className="mx-auto w-full max-w-[300px] lg:max-w-[340px]">
+            <div className="overflow-hidden rounded-[28px] bg-[#F2F7FB] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.75)]">
+              <img
+                src="./brand/robot.webp"
+                width="340"
+                height="469"
+                alt="El robot de Actualízate-IA, todavía sin nombre"
+                className="block h-auto w-full"
+                fetchpriority="high"
+              />
             </div>
-
-            <div className="mt-5 grid grid-cols-3 gap-2 border-t border-white/10 pt-4">
-              {sistemas.map((s) => (
-                <a
-                  key={s.id}
-                  href={`#${s.id}`}
-                  className="rounded-lg border border-white/10 bg-white/[0.03] px-2 py-2.5 text-center text-[11px] font-semibold leading-tight text-slate-300 transition hover:border-white/25 hover:text-white"
-                >
-                  {s.etiqueta}
-                </a>
-              ))}
-            </div>
-          </div>
+            <figcaption className="mt-3 text-center text-xs leading-relaxed text-slate-400">
+              El robot que procesa sus solicitudes aún no tiene nombre.{' '}
+              <a
+                href={site.bautizoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-aqua-300 underline-offset-2 transition hover:text-aqua-400 hover:underline"
+              >
+                Vote en el bautizo
+              </a>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
