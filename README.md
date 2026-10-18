@@ -1,10 +1,10 @@
-# ACTUA-IA · Robot Reporteador CONTPAQi®
+# ACYA-BOT · Robot Reporteador CONTPAQi®
 
 Sitio de intake por correo para solicitudes de modificación de reportes CONTPAQi®.
 Sustituye al formulario en línea anterior (propio y embebido de Notion), que en pruebas
 no recibía de forma confiable el código de los reportes.
 
-**Producción:** https://actua-ia-reporteador.vercel.app
+**Producción:** https://www.actualizate-ia.com.mx (también https://actua-ia-reporteador.vercel.app)
 **Repositorio:** https://github.com/jimontijo1973/actua-ia-reporteador (rama `main`)
 **Proyecto Vercel:** `prj_FPBUish4nQvRWEG9qmn0dlQwyIBo` · team `team_ENuFmh386PdEYJWaAKl0ioON`
 
@@ -16,12 +16,19 @@ la URL es pública.
 Dos servicios por el mismo buzón, distinguidos por el prefijo del asunto:
 
 - `[REPORTE]` — procesa y entrega el código del reporte modificado.
-- `[DIAGNOSTICO]` — **nuevo**. Análisis previo para quien no sabe qué reporte usar, cómo
-  pedir el ajuste o por qué falla su reporte. No entrega código: devuelve el análisis y, en
-  el tipo 2, la solicitud `[REPORTE]` prellenada (que se cobra aparte al enviarla).
+- `[DIAGNOSTICO]` — Análisis previo para quien no sabe qué reporte usar o cómo pedir el
+  ajuste. No entrega código: devuelve el análisis y, en el tipo 2, la solicitud `[REPORTE]`
+  prellenada (que se cobra aparte al enviarla).
+- **Corrección** — **nuevo** (sustituye al antiguo `[DIAGNOSTICO]` tipo 3). Se pide como
+  `[REPORTE]` con el bloque `## SOLICITO CORRECCION`. ACYA-BOT corrige, devuelve el reporte
+  sin costo y reembolsa un crédito. Sin plazo. Sección `#correccion`, contenido en
+  `src/data/correccion.js`; su NUEVO se apaga en `site.nuevoCorreccionHasta` (1/ene/2027).
+
+Buzón público: `acyabot@actualizate-ia.com.mx` (`chip@` y `acya-bot@` son alias del mismo
+buzón; no se publican).
 
 La sección **Elija su servicio** (`#servicio`, tras "Cómo funciona") trae el árbol de
-decisión, el selector `[DIAGNOSTICO]` | `[REPORTE]`, los tres tipos de solicitud (1, 2, 3)
+decisión, el selector `[DIAGNOSTICO]` | `[REPORTE]`, los dos tipos de solicitud (1 y 2)
 con su plantilla y botón de correo, el ejemplo, la tabla de cobro y el catálogo de
 créditos. La etiqueta NUEVO se apaga sola en `site.nuevoHasta` (1/nov/2026).
 
@@ -58,7 +65,8 @@ npm run creditos     # regenera el catálogo desde Notion (requiere NOTION_TOKEN
 | Correos, teléfonos, buzón, razón social, fecha del catálogo | `src/config/site.js` |
 | Plantillas, ejemplos, reglas, checklists, campos del encabezado ([REPORTE]) | `src/data/plantillas.js` |
 | Todo el contenido de [DIAGNOSTICO]: tipos, plantilla, ejemplo, cobro | `src/data/diagnostico.js` |
-| Fecha en que se apaga NUEVO, URL del bautizo del robot | `src/config/site.js` |
+| Fechas en que se apaga NUEVO, links de YouTube y WhatsApp | `src/config/site.js` |
+| Todo el contenido de Corrección | `src/data/correccion.js` |
 | Robot del Hero | `public/brand/robot.webp` |
 | Catálogo de créditos | `src/data/creditos.json` (generado) |
 | Preguntas frecuentes | `src/components/Preguntas.jsx` |
@@ -100,15 +108,13 @@ la página — que fue justo lo que pasó con el endpoint del formulario anterio
 
 ## Pendientes
 
-1. Apuntar el DNS de `www.actualizate-ia.com.mx` a Vercel y conectar el dominio.
-2. Confirmar razón social (`S. de R.L.` vs `S.C. de R.L.`) y el wording autorizado de
-   "Distribuidor Máster CONTPAQi®".
-3. Crear los buzones `ventas@` y `soporte@actualizate-ia.com.mx` — el footer los enlaza.
+1. Confirmar razón social (`S. de R.L.` vs `S.C. de R.L.`).
+2. Crear los buzones `ventas@` y `soporte@actualizate-ia.com.mx` — el footer los enlaza.
 
 ## QA
 
 `scripts/qa.mjs` levanta Chromium sobre el preview local y verifica: sin errores de
 consola, sin desbordamiento horizontal a 390 px y a 1440 px, el buscador filtra, ningún
 enlace `mailto:` pasa de 1,900 caracteres, y la sección [DIAGNOSTICO] (frase clave, las
-tres plantillas por tipo, ejemplo, catálogo, modo [REPORTE], robot cargado y ausencia del
+dos plantillas por tipo, la sección Corrección, título y enlaces de soporte, ejemplo, catálogo, modo [REPORTE], robot cargado y ausencia del
 aviso retirado del formulario). Requiere `npm i -D playwright`.

@@ -1,6 +1,6 @@
 // src/components/Hero.jsx
 import React from 'react';
-import { Mail, ArrowDown, ArrowRight, Paperclip } from 'lucide-react';
+import { Mail, ArrowDown, ArrowRight, Paperclip, Youtube, MessageCircle } from 'lucide-react';
 import site from '../config/site';
 import Nuevo from './Nuevo';
 
@@ -33,6 +33,15 @@ export default function Hero() {
               ¿No sabe qué reporte pedir? Empiece con un{' '}
               <span className="font-mono">[DIAGNOSTICO]</span>
             </span>
+            <ArrowRight className="h-3.5 w-3.5 shrink-0" />
+          </a>
+
+          <a
+            href="#correccion"
+            className="mt-2 flex w-fit max-w-full items-center gap-2 rounded-full border border-azul-500/40 bg-azul-500/10 py-1.5 pl-2 pr-3 text-xs font-semibold text-azul-300 transition hover:bg-azul-500/20"
+          >
+            <Nuevo hasta={site.nuevoCorreccionHasta} />
+            <span>¿Su reporte entregado marca error? Pida la Corrección sin costo</span>
             <ArrowRight className="h-3.5 w-3.5 shrink-0" />
           </a>
 
@@ -84,26 +93,41 @@ export default function Hero() {
         {/* Robot */}
         <div className="lg:col-span-5">
           <figure className="mx-auto w-full max-w-[300px] lg:max-w-[340px]">
-            <div className="overflow-hidden rounded-[28px] bg-[#F2F7FB] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.75)]">
+            <div className="overflow-hidden rounded-[28px] bg-[#F7F7F7] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.75)]">
               <img
                 src="./brand/robot.webp"
                 width="340"
-                height="469"
-                alt="El robot de Actualízate-IA, todavía sin nombre"
+                height="457"
+                alt="ACYA-BOT, el robot reporteador de Actualízate IA"
                 className="block h-auto w-full"
                 fetchpriority="high"
               />
             </div>
-            <figcaption className="mt-3 text-center text-xs leading-relaxed text-slate-400">
-              El robot que procesa sus solicitudes aún no tiene nombre.{' '}
-              <a
-                href={site.bautizoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-aqua-300 underline-offset-2 transition hover:text-aqua-400 hover:underline"
-              >
-                Vote en el bautizo
-              </a>
+            <figcaption className="mt-4">
+              <p className="text-center text-xs leading-relaxed text-slate-400">
+                <strong className="font-display font-bold text-white">{site.nombre}</strong>{' '}
+                procesa sus solicitudes. Información y soporte:
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <a
+                  href={site.recursos.youtubePlaylist}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-xs font-semibold text-white transition hover:border-red-400/50 hover:bg-red-500/10"
+                >
+                  <Youtube className="h-4 w-4 shrink-0 text-red-400" />
+                  Videos en YouTube
+                </a>
+                <a
+                  href={site.recursos.whatsappCanal}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-xs font-semibold text-white transition hover:border-emerald-400/50 hover:bg-emerald-500/10"
+                >
+                  <MessageCircle className="h-4 w-4 shrink-0 text-emerald-400" />
+                  Canal de WhatsApp
+                </a>
+              </div>
             </figcaption>
           </figure>
         </div>

@@ -80,21 +80,10 @@ export const TIPOS = [
       'Preguntas para cerrar la solicitud.',
     ],
   },
-  {
-    valor: 3,
-    corto: 'Mi reporte falla',
-    arbol: 'Mi reporte marca error o da resultados incorrectos',
-    arbolTexto: 'Con su .rpt adjunto le indicamos la causa, la línea y dónde intervenir.',
-    cuando: 'Mi reporte marca error o da resultados incorrectos.',
-    adjunto: 'Obligatorio',
-    recibeTitulo: 'Tipo 3 — Mi reporte falla',
-    recibe: [
-      'Una lista de las correcciones necesarias: la causa del error, con número de línea y el punto donde se debe intervenir.',
-    ],
-  },
 ];
 
-// Salida del "árbol de decisión": tres tipos de [DIAGNOSTICO] y la salida directa a [REPORTE].
+// Salida del "árbol de decisión": dos tipos de [DIAGNOSTICO] y la salida directa a [REPORTE].
+// El antiguo tipo 3 ("Mi reporte falla") ahora es el servicio Corrección (data/correccion.js).
 export const ARBOL_REPORTE = {
   titulo: 'Ya sé qué reporte es y qué cambio quiero',
   texto: 'Use la plantilla [REPORTE] de su sistema, con el .RPT adjunto.',
@@ -126,15 +115,9 @@ Qué datos quiere ver, cómo quiere agruparlos o totalizarlos.>
 <Lista de columnas o datos, en el orden deseado.
 Si tiene un ejemplo, descríbalo en texto.>`;
 
-const ERROR_TIPO_3 = `
-
-## ERROR O RESULTADO INCORRECTO (solo tipo 3)
-<Texto exacto del mensaje de error, o qué importe o dato sale mal
-y cuál esperaba. Indique qué parámetros capturó.>`;
-
-// Cuerpo completo para copiar. Los tipos 1 y 2 omiten la sección exclusiva del tipo 3.
+// Cuerpo completo para copiar.
 export function plantillaDiagnostico(tipo) {
-  return ENCABEZADO(tipo) + LO_QUE_NECESITA + (tipo === 3 ? ERROR_TIPO_3 : '');
+  return ENCABEZADO(tipo) + LO_QUE_NECESITA;
 }
 
 // Esqueleto corto para mailto: (Outlook de escritorio trunca cerca de 2,000 caracteres).
@@ -152,7 +135,7 @@ Responder a:
 
 ## DIAGNOSTICO
 
-${tipo === 3 ? '\n## ERROR O RESULTADO INCORRECTO (solo tipo 3)\n\n' : ''}`;
+`;
 }
 
 // ─────────────────────────────────────────────────── Ejemplo

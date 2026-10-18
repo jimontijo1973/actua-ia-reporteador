@@ -20,6 +20,7 @@ export default function Header() {
   const enlaces = [
     { href: '#como-funciona', texto: 'Cómo funciona' },
     { href: '#servicio', texto: 'Diagnóstico', nuevo: true },
+    { href: '#correccion', texto: 'Corrección', nuevo: true, hasta: site.nuevoCorreccionHasta },
     ...sistemas.map((s) => ({ href: `#${s.id}`, texto: s.etiqueta })),
     { href: '#preguntas', texto: 'Preguntas' },
   ];
@@ -43,7 +44,7 @@ export default function Header() {
               className="whitespace-nowrap rounded-lg px-2.5 py-2 text-[13px] font-medium text-slate-300 transition hover:bg-white/5 hover:text-white xl:px-3 xl:text-sm"
             >
               {e.texto}
-              {e.nuevo && <Nuevo className="ml-1.5" />}
+              {e.nuevo && <Nuevo className="ml-1.5" hasta={e.hasta} />}
             </a>
           ))}
         </nav>
@@ -70,7 +71,7 @@ export default function Header() {
                 className="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
               >
                 {e.texto}
-                {e.nuevo && <Nuevo className="ml-2" />}
+                {e.nuevo && <Nuevo className="ml-2" hasta={e.hasta} />}
               </a>
             ))}
             <a

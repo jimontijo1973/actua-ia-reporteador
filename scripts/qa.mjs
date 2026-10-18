@@ -69,19 +69,32 @@ for (const v of vistas) {
   if (!(await sec.getByText('El diagnóstico no entrega código; la modificación se hace en [REPORTE].').count()))
     errores.push(`[${v.nombre}] falta la frase clave del Diagnóstico`);
 
-  for (const n of [1, 2, 3]) {
+  for (const n of [1, 2]) {
     await sec.getByRole('tab', { name: new RegExp(`Tipo ${n}`) }).click();
     const cuerpo = await sec.locator('pre code').first().textContent(); // asunto
     const plantilla = await sec.locator('pre code').nth(1).textContent();
     if (!plantilla.includes(`Tipo de solicitud: ${n}`))
       errores.push(`[${v.nombre}] la plantilla no refleja el tipo ${n}`);
-    if (n === 3 && !plantilla.includes('ERROR O RESULTADO INCORRECTO'))
-      errores.push(`[${v.nombre}] el tipo 3 no trae la sección de error`);
-    if (n !== 3 && plantilla.includes('ERROR O RESULTADO INCORRECTO'))
+    if (plantilla.includes('ERROR O RESULTADO INCORRECTO'))
       errores.push(`[${v.nombre}] el tipo ${n} no debe traer la sección de error`);
     if (!cuerpo.startsWith('[DIAGNOSTICO]')) errores.push(`[${v.nombre}] asunto sin [DIAGNOSTICO]`);
   }
-  await sec.getByRole('tab', { name: 'Tipo 3 Mi reporte falla' }).screenshot({ path: `${OUT}/${v.nombre}-tipo3-tab.png` }).catch(() => {});
+  if (await sec.getByRole('tab', { name: /Tipo 3/ }).count())
+    errores.push(`[${v.nombre}] sigue existiendo el tipo 3 del Diagnóstico`);
+
+  // Sección Corrección
+  const cor = page.locator('#correccion');
+  if (!(await cor.count())) errores.push(`[${v.nombre}] falta la sección Corrección`);
+  else {
+    await cor.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    await page.screenshot({ path: `${OUT}/${v.nombre}-correccion.png` });
+    const plantillaCor = await cor.locator('pre code').nth(1).textContent();
+    if (!plantillaCor.includes('## SOLICITO CORRECCION'))
+      errores.push(`[${v.nombre}] la plantilla de Corrección no trae ## SOLICITO CORRECCION`);
+    const asuntoCor = await cor.locator('pre code').first().textContent();
+    if (!asuntoCor.startsWith('[REPORTE]')) errores.push(`[${v.nombre}] Corrección sin [REPORTE]`);
+  }
 
   // Cobro y catálogo (mismo número de créditos que el snapshot)
   await sec.getByText('Cobro', { exact: true }).scrollIntoViewIfNeeded();
@@ -108,6 +121,15 @@ for (const v of vistas) {
   // El aviso retirado no debe existir
   if (await page.getByText('El formulario en línea se retiró').count())
     errores.push(`[${v.nombre}] sigue el aviso "El formulario en línea se retiró"`);
+  // Marca, buzón y enlaces
+  if (await page.getByText(/chip@|Máster|Vote en el bautizo/).count())
+    errores.push(`[${v.nombre}] quedan textos viejos (chip@, Máster o bautizo)`);
+  if (!(await page.locator('a[href^="https://www.youtube.com/playlist"]').count()))
+    errores.push(`[${v.nombre}] falta el enlace a la playlist de YouTube`);
+  if (!(await page.locator('a[href^="https://chat.whatsapp.com/"]').count()))
+    errores.push(`[${v.nombre}] falta el enlace al canal de WhatsApp`);
+  if (!(await page.title()).startsWith('ACYA-BOT')) errores.push(`[${v.nombre}] el título no es ACYA-BOT`);
+
   // El robot carga
   const robotOk = await page.evaluate(() => {
     const i = document.querySelector('img[src$="brand/robot.webp"]');

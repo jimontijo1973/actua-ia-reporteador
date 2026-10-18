@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import ComoFunciona from './components/ComoFunciona';
 import SeccionServicio from './components/SeccionServicio';
+import SeccionCorreccion from './components/SeccionCorreccion';
 import SeccionSistema from './components/SeccionSistema';
 import Preguntas from './components/Preguntas';
 import Footer from './components/Footer';
@@ -17,6 +18,7 @@ export default function App() {
         <Hero />
         <ComoFunciona />
         <SeccionServicio />
+        <SeccionCorreccion />
 
         <div id="sistemas">
           {sistemas.map((s, i) => (

@@ -70,7 +70,7 @@ export const REGLAS_COMUNES = [
   {
     titulo: 'Aquí no se crean reportes nuevos',
     texto:
-      'Este canal modifica reportes que usted ya tiene instalados. Para un reporte desde cero, hable con su asesor.',
+      'Este canal modifica reportes que usted ya tiene instalados. Para un reporte desde cero, AcyaBot le sugiere cuál reporte se puede modificar.',
   },
 ];
 

@@ -4,7 +4,6 @@ import React, { useMemo, useRef, useState } from 'react';
 import {
   HelpCircle,
   Wrench,
-  Bug,
   Zap,
   ArrowRight,
   CheckCircle2,
@@ -40,7 +39,7 @@ import {
   cuerpoCortoDiagnostico,
 } from '../data/diagnostico';
 
-const ICONO_TIPO = { 1: HelpCircle, 2: Wrench, 3: Bug };
+const ICONO_TIPO = { 1: HelpCircle, 2: Wrench };
 
 export default function SeccionServicio() {
   const [modo, setModo] = useState('diagnostico'); // diagnostico | reporte
@@ -77,10 +76,7 @@ export default function SeccionServicio() {
       plantilla: plantillaDiagnostico(tipo),
       cuerpoCorto: cuerpoCortoDiagnostico(tipo),
       asuntoMailto: `${site.prefijoDiagnostico} `,
-      textoAdjunto:
-        tipo === 3
-          ? 'Pegue encima la plantilla completa y adjunte su .rpt (obligatorio en el tipo 3)'
-          : 'Pegue encima la plantilla completa y, si lo tiene, adjunte su .rpt',
+      textoAdjunto: 'Pegue encima la plantilla completa y, si lo tiene, adjunte su .rpt',
     }),
     [tipo]
   );
@@ -110,7 +106,7 @@ export default function SeccionServicio() {
         </p>
 
         {/* ───────── Árbol de decisión */}
-        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <button
             type="button"
             onClick={elegirReporte}
@@ -321,7 +317,7 @@ export default function SeccionServicio() {
               <div
                 role="tablist"
                 aria-label="Tipo de solicitud"
-                className="mt-4 grid grid-cols-1 gap-1.5 rounded-2xl border border-white/10 bg-white/[0.03] p-1.5 sm:grid-cols-3"
+                className="mt-4 grid grid-cols-1 gap-1.5 rounded-2xl border border-white/10 bg-white/[0.03] p-1.5 sm:grid-cols-2"
               >
                 {TIPOS.map((t) => (
                   <button

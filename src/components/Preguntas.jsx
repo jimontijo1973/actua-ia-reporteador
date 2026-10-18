@@ -10,7 +10,7 @@ const PREGUNTAS = [
   },
   {
     q: '¿Pueden hacerme un reporte nuevo desde cero?',
-    a: 'Por este canal no. El robot trabaja sobre un .RPT que usted ya tiene instalado: lo lee, aplica los cambios y lo devuelve compilado. Un reporte nuevo es un desarrollo y se cotiza aparte con su asesor.',
+    a: 'Por este canal no. ACYA-BOT trabaja sobre un .RPT que usted ya tiene instalado: lo lee, aplica los cambios y lo devuelve compilado. Para un reporte desde cero, AcyaBot le sugiere cuál reporte se puede modificar: pida un [DIAGNOSTICO] tipo 1 y le propone los reportes que más se acercan a lo que necesita.',
   },
   {
     q: '¿Por qué tengo que adjuntar mi archivo si ustedes ya tienen el del fabricante?',
@@ -26,15 +26,19 @@ const PREGUNTAS = [
   },
   {
     q: '¿Por qué el asunto tiene que empezar con [REPORTE] o [DIAGNOSTICO]?',
-    a: 'Porque la corrida filtra el buzón por esos prefijos: [REPORTE] para procesar y entregar el reporte, [DIAGNOSTICO] para pedir el análisis previo. Un correo sin ninguno de los dos simplemente no se recoge, y nadie se entera de que usted escribió.',
+    a: 'Porque la corrida filtra el buzón por esos prefijos: [REPORTE] para procesar y entregar el reporte —y también para pedir una Corrección—, [DIAGNOSTICO] para pedir el análisis previo. Un correo sin ninguno de los dos simplemente no se recoge, y nadie se entera de que usted escribió.',
   },
   {
     q: '¿Cuándo pido un [DIAGNOSTICO] y cuándo un [REPORTE]?',
-    a: 'Pida [REPORTE] cuando ya sabe qué reporte se modifica y qué cambio quiere. Pida [DIAGNOSTICO] cuando sabe lo que necesita ver en pantalla pero no sabe qué reporte usar, cómo pedir el ajuste o por qué su reporte falla. El diagnóstico prepara la solicitud; el reporte la ejecuta.',
+    a: 'Pida [REPORTE] cuando ya sabe qué reporte se modifica y qué cambio quiere. Pida [DIAGNOSTICO] cuando sabe lo que necesita ver en pantalla pero no sabe qué reporte usar o cómo pedir el ajuste. El diagnóstico prepara la solicitud; el reporte la ejecuta. Si un reporte que ya le entregamos falla, no es diagnóstico: es una Corrección.',
   },
   {
     q: '¿El [DIAGNOSTICO] me entrega el reporte modificado?',
     a: 'No. El diagnóstico no entrega código: entrega el análisis, las correcciones a su petición y, en el tipo 2, la solicitud [REPORTE] ya prellenada. La modificación del código se hace en el canal [REPORTE], que se cobra aparte cuando usted lo envía.',
+  },
+  {
+    q: 'Un reporte que me entregaron marca error. ¿Qué hago?',
+    a: 'Pida una Corrección: un correo con asunto [REPORTE], el nombre del reporte original terminado en "- correccion" y el bloque ## SOLICITO CORRECCION con el error exacto, los parámetros que usó y lo que esperaba. Adjunte el .rpt que ejecutó. ACYA-BOT lo corrige, se lo regresa sin costo y le reembolsa un crédito en compensación. No hay plazo para pedirla.',
   },
   {
     q: '¿Cuánto cuesta un [DIAGNOSTICO]?',
