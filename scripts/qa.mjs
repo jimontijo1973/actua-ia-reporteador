@@ -126,8 +126,8 @@ for (const v of vistas) {
     errores.push(`[${v.nombre}] quedan textos viejos (chip@, Máster o bautizo)`);
   if (!(await page.locator('a[href^="https://www.youtube.com/playlist"]').count()))
     errores.push(`[${v.nombre}] falta el enlace a la playlist de YouTube`);
-  if (!(await page.locator('a[href^="https://chat.whatsapp.com/"]').count()))
-    errores.push(`[${v.nombre}] falta el enlace al canal de WhatsApp`);
+  if (await page.locator('a[href^="https://chat.whatsapp.com/"]').count())
+    errores.push(`[${v.nombre}] el canal de WhatsApp es exclusivo para distribuidores y no debe aparecer`);
   if (!(await page.title()).startsWith('ACYA-BOT')) errores.push(`[${v.nombre}] el título no es ACYA-BOT`);
 
   // El robot carga

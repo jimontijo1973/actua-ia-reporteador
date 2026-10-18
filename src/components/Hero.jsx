@@ -1,6 +1,6 @@
 // src/components/Hero.jsx
 import React from 'react';
-import { Mail, ArrowDown, ArrowRight, Paperclip, Youtube, MessageCircle } from 'lucide-react';
+import { Mail, ArrowDown, ArrowRight, Paperclip, Youtube } from 'lucide-react';
 import site from '../config/site';
 import Nuevo from './Nuevo';
 
@@ -108,7 +108,7 @@ export default function Hero() {
                 <strong className="font-display font-bold text-white">{site.nombre}</strong>{' '}
                 procesa sus solicitudes. Información y soporte:
               </p>
-              <div className="mt-3 grid grid-cols-2 gap-2">
+              <div className="mt-3 grid grid-cols-1 gap-2">
                 <a
                   href={site.recursos.youtubePlaylist}
                   target="_blank"
@@ -117,15 +117,6 @@ export default function Hero() {
                 >
                   <Youtube className="h-4 w-4 shrink-0 text-red-400" />
                   Videos en YouTube
-                </a>
-                <a
-                  href={site.recursos.whatsappCanal}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 text-xs font-semibold text-white transition hover:border-emerald-400/50 hover:bg-emerald-500/10"
-                >
-                  <MessageCircle className="h-4 w-4 shrink-0 text-emerald-400" />
-                  Canal de WhatsApp
                 </a>
               </div>
             </figcaption>

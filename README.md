@@ -65,7 +65,7 @@ npm run creditos     # regenera el catálogo desde Notion (requiere NOTION_TOKEN
 | Correos, teléfonos, buzón, razón social, fecha del catálogo | `src/config/site.js` |
 | Plantillas, ejemplos, reglas, checklists, campos del encabezado ([REPORTE]) | `src/data/plantillas.js` |
 | Todo el contenido de [DIAGNOSTICO]: tipos, plantilla, ejemplo, cobro | `src/data/diagnostico.js` |
-| Fechas en que se apaga NUEVO, links de YouTube y WhatsApp | `src/config/site.js` |
+| Fechas en que se apaga NUEVO, link de YouTube | `src/config/site.js` |
 | Todo el contenido de Corrección | `src/data/correccion.js` |
 | Robot del Hero | `public/brand/robot.webp` |
 | Catálogo de créditos | `src/data/creditos.json` (generado) |

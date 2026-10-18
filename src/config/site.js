@@ -17,10 +17,10 @@ export const site = {
   nuevoHasta: '2026-11-01', // [DIAGNOSTICO]
   nuevoCorreccionHasta: '2027-01-01', // Corrección
 
-  // Información y soporte (bajo la imagen del robot).
+  // Información y soporte (bajo la imagen del robot). El canal de WhatsApp y el
+  // Gemini Notebook son exclusivos para distribuidores: no se publican aquí.
   recursos: {
     youtubePlaylist: 'https://www.youtube.com/playlist?list=PLBTXUmrlHQBc',
-    whatsappCanal: 'https://chat.whatsapp.com/IEkyPbKIMqx5MduZtmtxn4',
   },
 
   contacto: {
